@@ -1,0 +1,54 @@
+additionalTrustBundlePolicy: Proxyonly
+apiVersion: v1
+baseDomain: gateterminal.com
+compute:
+- architecture: amd64
+  hyperthreading: Enabled
+  name: worker
+  platform: {}
+  replicas: 0
+controlPlane:
+  architecture: amd64
+  hyperthreading: Enabled
+  name: master
+  platform:
+    azure:
+      encryptionAtHost: false
+      osDisk:
+        diskSizeGB: 120
+        diskType: Premium_LRS
+      type: Standard_D16as_v5
+      ultraSSDCapability: Enabled
+      osImage:
+        publisher: redhat
+        offer: rh-ocp-worker
+        sku: rh-ocp-worker-gen1
+        version: 413.92.2023101700
+  replicas: 1
+metadata:
+  creationTimestamp: null
+  name: snomas
+networking:
+  clusterNetwork:
+  - cidr: 10.128.0.0/24
+    hostPrefix: 23
+  machineNetwork:
+  - cidr: 10.101.4.0/24
+  networkType: OVNKubernetes
+  serviceNetwork:
+  - 10.128.1.0/24
+platform:
+  azure:
+    cloudName: AzurePublicCloud
+    region: westeurope
+    networkResourceGroupName: RG_POC-MAX
+    resourceGroupName: RG_POC-MAX
+    virtualNetwork: VN_POC-MAX
+    controlPlaneSubnet: master-subnet
+    computeSubnet: worker-subnet
+    outboundType: UserDefinedRouting
+pullSecret: '{"auths":{"cloud.openshift.com":{"auth":"b3BlbnNoaWZ0LXJlbGVhc2UtZGV2K2FicGlyb3NiZTFndTEycmJmanJuM3l6aWhteWhjcW53c2trNzpZU0IzQVc0VlAxSkZLQzQ3M0c0MENXWFRPVzE5NFhPTk5IOVJFN0c1M1E1OEhRWDlLUU9RVTk5WFVNR1g4M0VS","email":"ab@piros.be"},"quay.io":{"auth":"b3BlbnNoaWZ0LXJlbGVhc2UtZGV2K2FicGlyb3NiZTFndTEycmJmanJuM3l6aWhteWhjcW53c2trNzpZU0IzQVc0VlAxSkZLQzQ3M0c0MENXWFRPVzE5NFhPTk5IOVJFN0c1M1E1OEhRWDlLUU9RVTk5WFVNR1g4M0VS","email":"ab@piros.be"},"registry.connect.redhat.com":{"auth":"NTIzMjE2Njh8dWhjLTFHVTEycmJmanJuM3laSWhteUhDUW5Xc0trNzpleUpoYkdjaU9pSlNVelV4TWlKOS5leUp6ZFdJaU9pSmpaamRsTlRRMFltVTFPRGswTmpReU9EWTNNVGxtTm1ZNU5qZ3dOV1EwWkNKOS5SaGtteDlWNW54SlA5RVZUb1pRVDRJbExiR3ZnRUtpWjdaOXZkX0ViZmlNU28xUmlqb0hFUE9qdXlrVFktTjY0NWVINFdrYlh5UUlpT01EOUd6QUlFQ3Z2SXhLaHlZaEZCTnNFbVBoZ3doajFTVW41ZDhDUG1KYzVIMTc1azhacTQ4UmVsUEN0Q2k3YnRIUkxQT1BmYjd2Yll1LWFZTHNkTDFyWjMyN0ZXejI2VXpZbmhKNjRneEl5TWdaS01jN2s3QTVnMFlvQ1JyVDJkY1h2WjZyamYwZW9Hc1haU1JqVEQ4V0VTZlZBV2pVS3lEbEFDeTY5bTdQWFd1SGF0VV90M0xXMDlWemV5VG1Rd1RKYl9scmo5OHVhSWIzcHlXcWVIbDA0ZGZoeGtGdzh0bEJjNDNCNUEyYURjV2pwWlpGa3NQLWhxU2pvaVVTbXl5ZFF6a054dVJ0NjlNQkRNQmZtTDVPcXVqMnVWTVVMb2tFcVJJTnVHMWVPdlFvVUFDTzhvWGdEME8xVG9HeHB4ckF4cG94UHppT3M0b19VNlEtSTd3bkxXUGwxOTRFN2V1ZFZzQzdWQUF5RjZwMmpxWUtsRmw1RTNRLVJpM1U0WmlLM0R5M0tWZFZLVEVFcHRLU0VPVDNzU0RESzAyMUhaQmpHbWkwbXcwTnAwVjlPc2l1SDBadzc2QW5ST2o2YlVGZlExS2ZaRDRXbmlDWVlva1JRZlNmRElyTUxlQTZ6UllkNGF3Y2h2SnRyRnk5NUZrelJJYzMwM3oyckRDS251WFliZ0FpQmtmeml3RjVadUxBSWE2WE9HREJMU3FURTBGeTRUREFFbTh2Y3FCZWdoS216YWdON0NWU0ZxTjVkWGZydjBpbXEzNHREd1V2dUhYbl9JSVVlRTBDbUlxcw==","email":"ab@piros.be"},"registry.redhat.io":{"auth":"NTIzMjE2Njh8dWhjLTFHVTEycmJmanJuM3laSWhteUhDUW5Xc0trNzpleUpoYkdjaU9pSlNVelV4TWlKOS5leUp6ZFdJaU9pSmpaamRsTlRRMFltVTFPRGswTmpReU9EWTNNVGxtTm1ZNU5qZ3dOV1EwWkNKOS5SaGtteDlWNW54SlA5RVZUb1pRVDRJbExiR3ZnRUtpWjdaOXZkX0ViZmlNU28xUmlqb0hFUE9qdXlrVFktTjY0NWVINFdrYlh5UUlpT01EOUd6QUlFQ3Z2SXhLaHlZaEZCTnNFbVBoZ3doajFTVW41ZDhDUG1KYzVIMTc1azhacTQ4UmVsUEN0Q2k3YnRIUkxQT1BmYjd2Yll1LWFZTHNkTDFyWjMyN0ZXejI2VXpZbmhKNjRneEl5TWdaS01jN2s3QTVnMFlvQ1JyVDJkY1h2WjZyamYwZW9Hc1haU1JqVEQ4V0VTZlZBV2pVS3lEbEFDeTY5bTdQWFd1SGF0VV90M0xXMDlWemV5VG1Rd1RKYl9scmo5OHVhSWIzcHlXcWVIbDA0ZGZoeGtGdzh0bEJjNDNCNUEyYURjV2pwWlpGa3NQLWhxU2pvaVVTbXl5ZFF6a054dVJ0NjlNQkRNQmZtTDVPcXVqMnVWTVVMb2tFcVJJTnVHMWVPdlFvVUFDTzhvWGdEME8xVG9HeHB4ckF4cG94UHppT3M0b19VNlEtSTd3bkxXUGwxOTRFN2V1ZFZzQzdWQUF5RjZwMmpxWUtsRmw1RTNRLVJpM1U0WmlLM0R5M0tWZFZLVEVFcHRLU0VPVDNzU0RESzAyMUhaQmpHbWkwbXcwTnAwVjlPc2l1SDBadzc2QW5ST2o2YlVGZlExS2ZaRDRXbmlDWVlva1JRZlNmRElyTUxlQTZ6UllkNGF3Y2h2SnRyRnk5NUZrelJJYzMwM3oyckRDS251WFliZ0FpQmtmeml3RjVadUxBSWE2WE9HREJMU3FURTBGeTRUREFFbTh2Y3FCZWdoS216YWdON0NWU0ZxTjVkWGZydjBpbXEzNHREd1V2dUhYbl9JSVVlRTBDbUlxcw==","email":"ab@piros.be"}}}'
+sshKey: |
+  ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMBXFzbBmRhCVdQdJdpR10CuWx8IfEZgepcJAsKePh7T gateuser@SRVMPJH01
+publish: Internal
+fips: false
