@@ -64,7 +64,7 @@
     "galleryName": "[concat('gallery_', replace(parameters('baseName'), '-', '_'))]",
     "imageName" : "[concat(parameters('baseName'), if(equals(parameters('hyperVGen'), 'V2'), '-gen2', ''))]",
     "clusterNsgName" : "snomas-nsg",
-    "privateIPAddress" : "[concat(variables('vmName'), '-ssh-pip')]"
+    "sshPublicIpAddressName" : "[concat(variables('vmName'), '-ssh-pip')]"
   },
   "resources" : [
     {
