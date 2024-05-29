@@ -32,7 +32,7 @@
     },
     "bootstrapVMSize" : {
       "type" : "string",
-      "defaultValue" : "Standard_D4s_v3",
+      "defaultValue" : "Standard_D4a_v4",
       "metadata" : {
         "description" : "The size of the Bootstrap Virtual Machine"
       }
@@ -51,20 +51,20 @@
   },
   "variables" : {
     "location" : "[resourceGroup().location]",
-    "virtualNetworkName" : "[concat(if(not(empty(parameters('vnetBaseName'))), parameters('vnetBaseName'), parameters('baseName')), '-vnet')]",
+    "virtualNetworkName" : "VN_POC-MAX",
     "virtualNetworkID" : "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
-    "masterSubnetName" : "[concat(if(not(empty(parameters('vnetBaseName'))), parameters('vnetBaseName'), parameters('baseName')), '-master-subnet')]",
+    "masterSubnetName" : "master-subnet",
     "masterSubnetRef" : "[concat(variables('virtualNetworkID'), '/subnets/', variables('masterSubnetName'))]",
     "masterLoadBalancerName" : "[parameters('baseName')]",
-    "internalLoadBalancerName" : "[concat(parameters('baseName'), '-internal-lb')]",
+    "internalLoadBalancerName" : "snomas-lb-internal",
     "sshKeyPath" : "/home/core/.ssh/authorized_keys",
-    "identityName" : "[concat(parameters('baseName'), '-identity')]",
-    "vmName" : "[concat(parameters('baseName'), '-bootstrap')]",
+    "identityName" : "bmdms-identity",
+    "vmName" : "bootstrap",
     "nicName" : "[concat(variables('vmName'), '-nic')]",
     "galleryName": "[concat('gallery_', replace(parameters('baseName'), '-', '_'))]",
     "imageName" : "[concat(parameters('baseName'), if(equals(parameters('hyperVGen'), 'V2'), '-gen2', ''))]",
-    "clusterNsgName" : "[concat(if(not(empty(parameters('vnetBaseName'))), parameters('vnetBaseName'), parameters('baseName')), '-nsg')]",
-    "sshPublicIpAddressName" : "[concat(variables('vmName'), '-ssh-pip')]"
+    "clusterNsgName" : "snomas-nsg",
+    "privateIPAddress" : "[concat(variables('vmName'), '-ssh-pip')]"
   },
   "resources" : [
     {
