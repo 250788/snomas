@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hello-openshift
+  name: hello-openshift
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-openshift
+  template:
+    metadata:
+      labels:
+        app: hello-openshift
+    spec:
+      containers:
+      - image: registry.redhat.io/openshift4/ose-hello-openshift-rhel8
+        name: hello-openshift
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: hello-openshift
+  name: hello-openshift
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: hello-openshift
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: hello-openshift
+spec:
+  to:
+    kind: Service
+    name: hello-openshift
+    weight: 100
+  wildcardPolicy: None
